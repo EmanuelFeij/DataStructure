@@ -1,37 +1,47 @@
 package LinkedList
 
-import "fmt"
+import (
+	"testing"
+)
 
-type node struct {
-	data int
-	next *node
-}
-
-type LinkedList struct {
-	head     *node
-	capacity int
-}
-
-func NewLinkedList() *LinkedList {
-	return &LinkedList{head: nil, capacity: 0}
-}
-
-func (l *LinkedList) add(data int) {
-	newNode := &node{data: data, next: nil}
-	if l.head == nil {
-		l.head = newNode
-		return
+func TestLinkedListCreationAndAdd(t *testing.T) {
+	llist := NewLinkedList()
+	llist.Add(1)
+	llist.Add(2)
+	llist.Add(3)
+	expected := []int{1, 2, 3}
+	actual := llist.ToSlice()
+	if len(actual) != len(expected) {
+		t.Errorf("Expected %v, got %v", expected, actual)
 	}
-	var current *node
-	for i := l.head; i != nil; i = i.next {
-		current = i
+	for i := range expected {
+		if expected[i] != actual[i] {
+			t.Errorf("Expected %v, got %v", expected, actual)
+		}
 	}
-	current.next = newNode
-	return
 }
 
-func (l *LinkedList) print() {
-	for i := l.head; i != nil; i = i.next {
-		fmt.Println(i.data)
+func TestLinkedListRemove(t *testing.T) {
+
+	llist := NewLinkedList()
+	llist.Add(1)
+	llist.Add(2)
+	llist.Add(3)
+	llist.Add(5)
+	llist.Add(6)
+	llist.Add(7)
+	llist.Remove(7)
+	llist.Remove(1)
+	llist.Remove(3)
+	expected := []int{2, 5, 6}
+	actual := llist.ToSlice()
+
+	if len(actual) != len(expected) {
+		t.Errorf("Expected %v, got %v", expected, actual)
+	}
+	for i := range expected {
+		if expected[i] != actual[i] {
+			t.Errorf("Expected %v, got %v", expected, actual)
+		}
 	}
 }
