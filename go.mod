@@ -1,3 +1,3 @@
-module github.com/EmanuelFeij/DataStructure
+module github.com/EmanuelFeij/DataStructures
 
 go 1.15
